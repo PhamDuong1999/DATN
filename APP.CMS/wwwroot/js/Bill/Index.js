@@ -15,7 +15,7 @@
         },
         table: $('#dtTable')
     });
-    var stt =  $('#txtStatushd').val();
+    var stt = $('#txtStatushd').val();
     normal.getData = function (time = "", status) {
         showLoading();
         $.ajax({
@@ -30,8 +30,9 @@
                 hideLoading()
             }
         })
-    },
-    normal.getData("",stt);
+    };
+    console.log(stt)
+    normal.getData("", stt);
     normal.frm.find(normal.button.search).on('click', function () {
         var time = normal.frm.find('#txtDate').val();
         var status = $('#drStatus').val();

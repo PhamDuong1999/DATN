@@ -1,10 +1,8 @@
 ﻿$(function () {
-    getData();
     $('#btnSearch').click(function () {
         var time = $('#txtDate').val();
         getData(time);
     })
-    getData();
     $('#btnExport').click(function () {
         exportPdf();
     })

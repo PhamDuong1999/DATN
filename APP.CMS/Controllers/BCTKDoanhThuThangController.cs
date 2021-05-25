@@ -28,10 +28,10 @@ namespace APP.CMS.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(time))
-                {
-                    time = DateTime.Now.Date.ToString("MM/yyyy");
-                }
+                //if (string.IsNullOrEmpty(time))
+                //{
+                //    time = DateTime.Now.Date.ToString("MM/yyyy");
+                //}
                 var data = await _temporaryBillManager.Get_List_Bill_Month(time);
                 if (data != null)
                 {

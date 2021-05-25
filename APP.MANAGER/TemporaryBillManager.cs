@@ -82,7 +82,7 @@ namespace APP.MANAGER
             {
                 var time1 = time.Split("-");
                 var data = (await _unitOfWork.TemporaryBillRepository.FindBy(x => (x.Status == (byte)BillStatus.Bill) 
-                                                                            && ((x.TimeOut.Value.Month.ToString() == time1[1] && x.TimeOut.Value.Year.ToString() == time1[0])
+                                                                            && ((x.TimeOut.Value.Month == int.Parse(time1[1]) && x.TimeOut.Value.Year == int.Parse(time1[0]))
                                                                             || string.IsNullOrEmpty(time))))
                     .OrderByDescending(x => x.TimeIn).ToList();
                 if (data != null)

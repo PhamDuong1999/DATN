@@ -32,15 +32,17 @@ namespace APP.CMS.Controllers
         }
         [CustomAuthen]
         [HttpGet("get-list")]
-        public async Task<IActionResult> Get_List(string createdDate)
+        public async Task<IActionResult> Get_List(string createdDate,int IdPhuTung)
         {
             try
             {
-                var data = await _importReceiptManager.Get_List(createdDate);
+                var data = await _importReceiptManager.Get_List(createdDate,IdPhuTung);
+                
                 if (data != null)
                 {
                     data = data.OrderByDescending(c => c.CreatedDate).ToList();
                 }
+                
                 return PartialView("_List", data);
             }
             catch (Exception ex)
@@ -145,6 +147,8 @@ namespace APP.CMS.Controllers
             var path = _httpContextAccessor.HttpContext.Request.Path.Value;
             var currentPagePermission = permission.Where(c => c.MenuUrl.ToLower() == path.ToLower()).ToList();
             ViewData[nameof(PermissionEnum.Create)] = currentPagePermission.Count(c => c.ActionCode == (nameof(PermissionEnum.Create))) > 0 ? 1 : 0;
+            var ListPhuTung = await _accessoriesManager.Get_List("");
+            ViewData["ListPhuTung"] = ListPhuTung;
             return View();
         }
     }

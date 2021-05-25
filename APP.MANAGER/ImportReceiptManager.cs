@@ -13,7 +13,7 @@ namespace APP.MANAGER
     {
         Task Create(ImportReceipt inputModel);
         //Task Delete(long id);
-        Task<List<ImportReceipt>> Get_List(string createdDate);
+        Task<List<ImportReceipt>> Get_List(string createdDate,int IdPhuTung);
         Task<ImportReceipt> Find_By_Id(long id);
         Task<List<ImportReceipt_Accessory>> Get_List_Import_Accesories(long id);
     }
@@ -59,11 +59,14 @@ namespace APP.MANAGER
                 throw ex;
             }
         }
-        public async Task<List<ImportReceipt>> Get_List(string createdDate)
+        public async Task<List<ImportReceipt>> Get_List(string createdDate,int IdPhuTung=-1)
         {
             try
             {
-                var data = (await _unitOfWork.ImportReceiptRepository.FindBy(c=>c.CreatedDate.Date.ToString() == createdDate || string.IsNullOrEmpty(createdDate))).ToList();
+                
+                var LsIdDonNhap = (await _unitOfWork.ImportReceipt_AccessoryRepository.FindBy(x=>x.AccesoryId==IdPhuTung)).Select(x=>x.ImportReceiptId).ToList();
+                var data = (await _unitOfWork.ImportReceiptRepository.FindBy(c=>c.CreatedDate.Date.ToString() == createdDate || string.IsNullOrEmpty(createdDate) 
+                                                                             &&(IdPhuTung==-1 || LsIdDonNhap.Contains(c.Id)))).ToList();
                 if(data != null)
                 {
                     foreach (var i in data)

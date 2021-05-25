@@ -8,12 +8,7 @@ $(function () {
 });
 $('#modal-form').find('#btnSave').off('click').on('click', function (e) {
     e.preventDefault();
-    var sex = 0;
-     $(create.frm.find("[name='radioSex']")).each(function (index) {
-        if ($(this.checked)) {
-            sex = $(this).val();
-        }
-    })
+    var sex = $("input[name=radioSex]:checked").val();;
     create.model = {
         Name: create.frm.find('#txtName').val(),
         JobPositionId: create.frm.find('#drJob').val(),
